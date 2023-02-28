@@ -1,6 +1,6 @@
-# fly.toml file generated for arch-target-mvp-refs-8089 on 2023-02-23T18:49:21-03:00
+# fly.toml file generated for senior-dev-skills on 2023-02-23T18:49:21-03:00
 
-app = "arch-target-mvp-refs-8089"
+app = "senior-dev-skills"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

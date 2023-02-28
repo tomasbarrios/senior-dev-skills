@@ -7,6 +7,7 @@ import { deleteNote, getNote } from "~/models/note.server";
 import { requireUserId } from "~/session.server";
 
 export async function loader({ request, params }: LoaderArgs) {
+  // FIXME: throw new Error("HEY MEN, this should be tested as well")
   const userId = await requireUserId(request);
   invariant(params.noteId, "noteId not found");
 
@@ -46,6 +47,36 @@ export default function NoteDetailsPage() {
   );
 }
 
+/*
+You could delete this, still the ErrorBoundary in the root will catch all errors,
+But you can gracefully fail if you do it here (still show the sidebar in the notes page)
+
+### WITH this function implemented (will only "Locally" fail)
+_________________________________
+ Header
+---------------------------------
+|         |                     |
+|         |                     |
+|         |                     |
+|   OK    |      ERROR CAN BE   |
+| CONTENT |     PRESENTED HERE  |
+|         |                     |
+|         |                     |
+_________________________________
+
+### WITHOUT this function implemented (global fail via `root` file)
+
+`root` is ready to receive any fail from any page or the header
+_________________________________
+ 
+Something went wrong: <Stacktrace>
+_________________________________
+
+By default, you will only have what the error is talking about. Basically at this point ytou are concerned about two things
+- Unexpected errors
+- Uneexpected errors within _some page_ (cases when the layout renders ok. Elements like header, siderbar, footer, etc. i.e. The page is)
+
+*/
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
 
