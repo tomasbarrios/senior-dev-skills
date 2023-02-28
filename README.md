@@ -230,3 +230,13 @@ We use [Prettier](https://prettier.io/) for auto-formatting in this project. It'
 | vite | ^4.0.4 | ? |
 | vite-tsconfig-paths | ^3.6.0 | ? |
 | vitest | ^0.27.2 | ? |
+
+----
+
+Kent on 4 hours of good practices and Remix magic
+
+### Error boundaries
+https://youtu.be/hsIWJpuxNj0?t=15769
+
+
+
