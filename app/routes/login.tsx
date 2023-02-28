@@ -160,12 +160,24 @@ export default function LoginPage() {
               </label>
             </div>
             <div className="text-center text-sm text-gray-500">
-              Don't have an account?{" "}
+              Don't have an account?!{" "}
               <Link
                 className="text-blue-500 underline"
                 to={{
                   pathname: "/join",
                   search: searchParams.toString(),
+                }}
+              >
+                Sign up
+              </Link>
+            </div>
+            <div className="text-center text-sm text-gray-500">
+              Don't have an account?{" "}
+              <Link
+                className="text-blue-500 underline"
+                to={{
+                  pathname: "/newpassword",
+                  email: emailRef.current,
                 }}
               >
                 Sign up
