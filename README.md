@@ -1,3 +1,5 @@
+Deploy rigger test
+
 Generated from template
 https://github.com/tomasbarrios/indie-stack-mvps
 tomasbarrios/indie-stack-mvps
