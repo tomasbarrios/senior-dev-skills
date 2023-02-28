@@ -38,6 +38,7 @@ function Document({ title = "This is great, all ok", children }: {title?: string
     <html lang="en" className="h-full">
       <head> 
         <Meta />
+        <title>{title}</title>
         <Links />
       </head>
       <body className="h-full">

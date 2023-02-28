@@ -13,12 +13,15 @@ export async function loader({ request }: LoaderArgs) {
   return json({});
 }
 
+
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
   const redirectTo = safeRedirect(formData.get("redirectTo"), "/notes");
   const remember = formData.get("remember");
+
+  
 
   if (!validateEmail(email)) {
     return json(
@@ -66,10 +69,22 @@ export const meta: MetaFunction = () => {
 
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
+  const [newPassParams, setPassParams] = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") || "/notes";
+  // setPassParams("email");
+  // searchParams.se
   const actionData = useActionData<typeof action>();
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
+  
+  // function serializeFormQuery(event) {
+  //   return "HILA"
+  //   return event.toString();
+  // }
+
+  
+  // let params = serializeFormQuery(emailRef.current?.value);
+  // setPassParams(params);
 
   React.useEffect(() => {
     if (actionData?.errors?.email) {
