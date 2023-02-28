@@ -177,7 +177,7 @@ export default function LoginPage() {
                 className="text-blue-500 underline"
                 to={{
                   pathname: "/newpassword",
-                  email: emailRef.current,
+                  // search: emailRef.current?.value || "",
                 }}
               >
                 Sign up

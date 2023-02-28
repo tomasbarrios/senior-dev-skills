@@ -7,7 +7,7 @@ import { deleteNote, getNote } from "~/models/note.server";
 import { requireUserId } from "~/session.server";
 
 export async function loader({ request, params }: LoaderArgs) {
-  // throw new Error("HEY MEN")
+  // FIXME: throw new Error("HEY MEN, this should be tested as well")
   const userId = await requireUserId(request);
   invariant(params.noteId, "noteId not found");
 
