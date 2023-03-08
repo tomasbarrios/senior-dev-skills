@@ -1,11 +1,16 @@
-Deploy rigger test
+Latest additions (Changelog)
 
-Generated from template
-https://github.com/tomasbarrios/indie-stack-mvps
-tomasbarrios/indie-stack-mvps
+- Added some mdx content, managed at build time [Research on MDX](#research)
 
-```
-npx create-remix@latest --template tomasbarrios/indie-stack-mvps  arch-target-mvp-refs
+See the rest of the [Changelog](#changelog)
+
+###
+
+Senior Dev Skills
+
+This repo holds content about my experience developing and what
+aspects have I found important to get better at software engineering
+
 ```
 
 # Remix Indie Stack
@@ -241,4 +246,21 @@ Kent on 4 hours of good practices and Remix magic
 https://youtu.be/hsIWJpuxNj0?t=15769
 
 
+### Research
 
+#### MDX
+
+Two options
+- Buildtime
+  - https://remix.run/docs/en/1.14.0/guides/mdx#routes
+- Runtime
+
+### Changelog
+
+#### Initial Commit
+The initial commit was made from a "Remix Indie Stack", with a personal fork https://github.com/tomasbarrios/indie-stack-mvps
+
+The generator for the app works with the following app
+
+```
+npx create-remix@latest --template tomasbarrios/indie-stack-mvps  arch-target-mvp-refs

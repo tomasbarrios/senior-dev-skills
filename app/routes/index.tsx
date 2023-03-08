@@ -4,28 +4,54 @@ import { useOptionalUser } from "~/utils";
 
 export default function Index() {
   const user = useOptionalUser();
+  type LinkLabel = {
+    tKey: string,
+    label: string
+  }
+  const links: LinkLabel[] = [
+    { tKey: 'shared.nav.about.why', label: 'Why?' },
+    { tKey: 'shared.nav.about.how', label: 'How?' },
+    { tKey: 'shared.nav.about.who', label: 'WHo?' },
+    { tKey: 'shared.nav.about.when', label: 'When?' }
+  ]
+
+  const NavLink = ({tKey, label}: LinkLabel) => {
+    return <Link key={tKey}
+        to={`/${tKey.substring(tKey.lastIndexOf(".") + 1, tKey.length)}`}
+        className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
+      >
+        {label}
+      </Link>
+  }
   return (
+    <>
+    <nav>
+      {links.map(NavLink)}
+    </nav>
     <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
       <div className="relative sm:pb-16 sm:pt-8">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
             <div className="absolute inset-0">
-              <img
+              {/* <img
                 className="h-full w-full object-cover"
                 src="https://user-images.githubusercontent.com/1500684/157774694-99820c51-8165-4908-a031-34fc371ac0d6.jpg"
                 alt="Sonic Youth On Stage"
-              />
+              /> */}
               <div className="absolute inset-0 bg-[color:rgba(254,204,27,0.5)] mix-blend-multiply" />
             </div>
             <div className="relative px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pb-20 lg:pt-32">
               <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
                 <span className="block uppercase text-yellow-500 drop-shadow-md">
-                  Indie Stack
+                  Know your team
                 </span>
               </h1>
               <p className="mx-auto mt-6 max-w-lg text-center text-xl text-white sm:max-w-3xl">
-                Check the README.md file for instructions on how to get this
-                project deployed.
+                We help you find and express their abilities to form autonomous,
+                involved software engineers that can deliver value by engaging with the rules
+                and modeling them, not expecting to be told what to do, but to propose and be
+                a part of your organization because they feel safe to think and come up with new ideas.
+                
               </p>
               <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
                 {user ? (
@@ -41,7 +67,7 @@ export default function Index() {
                       to="/join"
                       className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
                     >
-                      Sign up
+                      Registro
                     </Link>
                     <Link
                       to="/login"
@@ -52,18 +78,19 @@ export default function Index() {
                   </div>
                 )}
               </div>
-              <a href="https://remix.run">
+              {/* <a href="https://remix.run">
                 <img
                   src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
                   alt="Remix"
                   className="mx-auto mt-16 w-full max-w-[12rem] md:max-w-[16rem]"
                 />
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
 
         <div className="mx-auto max-w-7xl py-2 px-4 sm:px-6 lg:px-8">
+          <h2  className="mt-6 flex flex-wrap justify-center gap-8">Made with</h2>
           <div className="mt-6 flex flex-wrap justify-center gap-8">
             {[
               {
@@ -134,5 +161,7 @@ export default function Index() {
         </div>
       </div>
     </main>
+    </>
+
   );
 }
