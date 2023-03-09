@@ -29,7 +29,6 @@ export const meta: MetaFunction = () => ({
 
 async function getLocale(request: Request) {
   let locale = await i18next.getLocale(request);
-  console.log("HOLI", {locale})
   return locale
 }
 
