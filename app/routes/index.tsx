@@ -1,18 +1,24 @@
 import { Link } from "@remix-run/react";
-
+import { useTranslation } from "react-i18next";
 import { useOptionalUser } from "~/utils";
 
+// This tells remix to load the "home" namespace
+export let handle = { i18n: "common" };
+
+
 export default function Index() {
+  let { t: tNav } = useTranslation("nav");
+
   const user = useOptionalUser();
   type LinkLabel = {
     tKey: string,
     label: string
   }
   const links: LinkLabel[] = [
-    { tKey: 'shared.nav.about.why', label: 'Why?' },
-    { tKey: 'shared.nav.about.how', label: 'How?' },
-    { tKey: 'shared.nav.about.who', label: 'WHo?' },
-    { tKey: 'shared.nav.about.when', label: 'When?' }
+    { tKey: 'why', label: 'Why?' },
+    { tKey: 'how', label: 'How?' },
+    { tKey: 'who', label: 'WHo?' },
+    { tKey: 'when', label: 'When?' }
   ]
 
   const NavLink = ({tKey, label}: LinkLabel) => {
@@ -20,7 +26,7 @@ export default function Index() {
         to={`/${tKey.substring(tKey.lastIndexOf(".") + 1, tKey.length)}`}
         className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
       >
-        {label}
+        {/* {tNav(tKey)} */}
       </Link>
   }
   return (
