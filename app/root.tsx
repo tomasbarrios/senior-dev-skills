@@ -1,5 +1,5 @@
 import React from "react";
-import { useChangeLanguage } from "remix-i18next";
+import { useChangeLanguage } from "./fixes/i18next";
 import { useTranslation } from "react-i18next";
 import i18next from "~/i18next.server";
 import type { LinksFunction, LoaderArgs, MetaFunction } from "@remix-run/node";
@@ -49,10 +49,7 @@ export let handle = {
   i18n: "common",
 };
 
-function Document({ title = "This is great, all ok", children }: {title?: string, children: React.ReactNode}) {
-
-  // Get the locale from the loader
-  let { locale } = useLoaderData<typeof loader>();
+function Document({ locale = 'es', title = "This is great, all ok", children }: {locale?: string, title?: string, children: React.ReactNode}) {
 
   let { i18n } = useTranslation();
 
@@ -79,8 +76,10 @@ function Document({ title = "This is great, all ok", children }: {title?: string
 }
 
 export default function App() {
+  let { locale } = useLoaderData<typeof loader>();
+
   return (
-    <Document>
+    <Document locale={locale}>
       <Outlet />
       <LiveReload />
     </Document>

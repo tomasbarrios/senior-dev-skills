@@ -15,7 +15,7 @@ export default function Index() {
     label: string
   }
   const links: LinkLabel[] = [
-    { tKey: 'why', label: 'Why?' },
+    { tKey: 'why', label: 'Why?!!!' },
     { tKey: 'how', label: 'How?' },
     { tKey: 'who', label: 'WHo?' },
     { tKey: 'when', label: 'When?' }
@@ -26,7 +26,7 @@ export default function Index() {
         to={`/${tKey.substring(tKey.lastIndexOf(".") + 1, tKey.length)}`}
         className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
       >
-        {/* {tNav(tKey)} */}
+        {tNav(tKey)}
       </Link>
   }
   return (
