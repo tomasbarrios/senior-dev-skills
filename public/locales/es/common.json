@@ -1,6 +1,15 @@
 {
     "greeting": "Hello",
+    "metoo": "METO",
     "sign up": "Sign up",
+<<<<<<< Updated upstream
+    "log in": "Log in",
+    "inspire": "Know your team",
+    "explain": "Apoyamos a equipos de software en la búsqueda de valor, reenfocando la mirada de los integrantes para hacerlos ver su aporte potencial, con la confianza que su valor está en idear, y esa expresión es buena para todos"
+=======
+    "sign up up" : "NOOOOup2!!!!!!",
     "log in": "Log in"
+    
+>>>>>>> Stashed changes
   }
   

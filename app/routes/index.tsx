@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react";
 import { useTranslation } from "react-i18next";
 import { useOptionalUser } from "~/utils";
 
+
 // This tells remix to load the "home" namespace
 export let handle = { i18n: "common" };
 
@@ -13,16 +14,16 @@ export default function Index() {
   const user = useOptionalUser();
   type LinkLabel = {
     tKey: string,
-    label: string
+    // label: string
   }
   const links: LinkLabel[] = [
-    { tKey: 'why', label: 'Why?!!!' },
-    { tKey: 'how', label: 'How?' },
-    { tKey: 'who', label: 'WHo?' },
-    { tKey: 'when', label: 'When?' }
+    { tKey: 'why' },
+    { tKey: 'how' },
+    { tKey: 'who' },
+    { tKey: 'when'  }
   ]
 
-  const NavLink = ({tKey, label}: LinkLabel) => {
+  const NavLink = ({tKey}: LinkLabel) => {
     return <Link key={tKey}
         to={`/${tKey.substring(tKey.lastIndexOf(".") + 1, tKey.length)}`}
         className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
@@ -32,11 +33,17 @@ export default function Index() {
   }
 
   const actionTexts = {
+    msg: tCommon('metoo'),
     signup: tCommon('sign up'),
-    login: tCommon('log in')
+    login: tCommon('log in'),
+    inspire: tCommon('inspire'),
+    explain: tCommon('explain')
   }
+
+  const test = tNav('much')
   return (
     <>
+    <h1>{test}</h1>
     <nav>
       {links.map(NavLink)}
     </nav>
@@ -55,14 +62,26 @@ export default function Index() {
             <div className="relative px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pb-20 lg:pt-32">
               <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
                 <span className="block uppercase text-yellow-500 drop-shadow-md">
-                  Know your team
+<<<<<<< Updated upstream
+                  {actionTexts.inspire}
                 </span>
               </h1>
               <p className="mx-auto mt-6 max-w-lg text-center text-xl text-white sm:max-w-3xl">
-                We help you find and express their abilities to form autonomous,
+                {/* We help you find and express their abilities to form autonomous,
                 involved software engineers that can deliver value by engaging with the rules
                 and modeling them, not expecting to be told what to do, but to propose and be
-                a part of your organization because they feel safe to think and come up with new ideas.
+                a part of your organization because they feel safe to think and come up with new ideas.*/}
+                {actionTexts.explain} 
+
+
+=======
+                {actionTexts.login}
+                  {actionTexts.login}
+                </span>
+              </h1>
+              <p className="mx-auto mt-6 max-w-lg text-center text-xl text-white sm:max-w-3xl">
+                {actionTexts.msg}
+>>>>>>> Stashed changes
                 
               </p>
               <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">

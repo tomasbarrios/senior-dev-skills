@@ -1,4 +1,13 @@
 {
-    "greeting": "Hello"
+    "greeting": "Hello",
+<<<<<<< Updated upstream
+    
+    "inspire": "know your team",
+    "explain": "We help you find and express their abilities to form autonomous, involved software engineers that can deliver value by engaging with the rules and modeling them, not expecting to be told what to do, but to propose and participate of their organization because they feel safe to think and come up with new ideas."
+    
+  }
+=======
+    "sign up up" : "Sign up2!!!"
   }
   
+>>>>>>> Stashed changes

@@ -9,7 +9,6 @@ import { requireUserId } from "~/session.server";
 export async function action({ request }: ActionArgs) {
   const userId = await requireUserId(request);
 
-  console.log("CALLING ACTION")
   const formData = await request.formData();
   const title = formData.get("title");
   const body = formData.get("body");
