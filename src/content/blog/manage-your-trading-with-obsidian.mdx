@@ -42,15 +42,15 @@ trade:: DOGEUSDT | 2023-08-01 | 9681 | 0.07747 | long | 0 | open | perp
 trade:: ZECUSD | 2023-07-21 | 25.68 | 31.90 | long | 0 | open | etoro
 trade:: MKRUSDT | 2023-07-06 | 0.203 | 987.5 | long | 0 | open | perp
 trade:: MANAUSDT | 2023-07-05 | 510 | 0.3933 | long | 0 | open | perp
-trade:: TELUSDT | 2023-07-04 |  145981.6 | 0.001470 | long | 0 | open | spot
-trade:: VRAUSDT | 2023-07-04 |  19105.84 | 0.005234 | long | 0.00425 | closed | spot
+trade:: TELUSDT | 2023-07-04 | 145981.6 | 0.001470 | long | 0 | open | spot
+trade:: VRAUSDT | 2023-07-04 | 19105.84 | 0.005234 | long | 0.00425 | closed | spot
 trade:: ETCUSDT | 2023-07-04 | 25.6 | 19.59 | long | 17.99 | simulation | perp
-trade:: SOLUSDC | 2023-07-03 |  26.19 | 19.09 | long | 0 | open | spot
+trade:: SOLUSDC | 2023-07-03 | 26.19 | 19.09 | long | 0 | open | spot
 trade:: MKRUSDT | 2023-07-03 | 0.2 | 1021 | long | 0 | open | perp
 
 # Junio
 trade:: AAVEUSDT.P | 2023-06-28 | 5 | 61 | long | 67.38 | closed | perp
-trade:: CAKEUSDT | 2023-06-27 | 322 | 1.546 |  long | 0 | open | spot
+trade:: CAKEUSDT | 2023-06-27 | 322 | 1.546 | long | 0 | open | spot
 ```
 
 Cada linea representa una compra, separando la información mediante el caracter `|`.
@@ -71,14 +71,14 @@ TABLE WITHOUT ID
 	PL,
 	AbsPL,
 	Date,
-	Invested,
-	Wallet,
-	Status,
 	Open,
 	Closed,
-	PLPercent
-
-FROM "tradelist"
+	Wallet,
+	Invested,
+	Status
+	
+	
+FROM "trade list ALTS"
 WHERE trade
 FLATTEN trade AS W
 FLATTEN split(W, " \| ")[0] AS Coin
@@ -102,7 +102,7 @@ FLATTEN choice(
 	 "--",
 	 number(ClosedVal)
  ) as Closed
-
+ 
 FLATTEN choice(
 	Trend = "long",
 	(round((number(ClosedVal) - number(Open))/number(Open),3)),
@@ -121,29 +121,29 @@ FLATTEN choice(
 		 choice(Status = "closed", "#bb0000", "red")
 	 ),
   "inherit"
-)
+) 
 AS "PLColor"
 
 FLATTEN choice(
 	netPL != 0,
-	"<span style='color: " + PLColor + ";'>" + PLPercent + "%</span>",
+	"<span style='color: " + PLColor + ";'>" + PLPercent + "%</span>",		 
 	" "
-)
+) 
 AS "PL"
 
-FLATTEN round((netPL * number(Aquired) * ClosedVal),1) as AbsPL
+FLATTEN round((netPL * number(Aquired) * ClosedVal),0) as AbsPL
 
-WHERE date(Date).month >= 6 AND
+WHERE
 date(Date).year = 2023
 
-SORT Date desc, Wallet desc
+SORT AbsPL desc, Date desc
 ```
 
-Este script de dataview, es un query que:
+Este query de dataview:
 - buscará solo en el archivo tradelist
 - buscará cualquier linea que comience con `trade::`
 
-Y generará una tabla como la siguiente
+Y genera una tabla como la siguiente
 
 ![Listado de trades](/images/trades-obsidian-dataview.png)
 
