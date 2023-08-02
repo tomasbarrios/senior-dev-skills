@@ -1,0 +1,154 @@
+---
+title: "Track your trades with Obsidian"
+description: "Use Obsidian to visualize and keep a record of your trades"
+pubDate: "Aug 02 2023"
+heroImage: "/images/trades-obsidian-dataview.png"
+---
+
+Si tienes inversiones en acciones, commodities, monedas o cripto, es importante que seas ordenado y lleves un registro de cada compra.
+
+Cuando pasen los meses, querrás saber si la inversión ha rentado, y cuanto.
+
+El sistema que inventes puede variar desde la simpleza de un cuaderno con anotaciones hasta aplicaciones.
+
+## Obsidian
+
+Obsidian es una aplicación para tomar notas, la cual puede ser enchulada mediante varios plugins.
+
+Uno de los plugins mas utilizados y poderosos es dataview
+
+Este plugin te permite visualizar tus notas en Tablas o Listas mediante `querys`.
+Algo así como SQL para hacer consultas sobre información, pero esa data no vive en una base de datos,
+sino en archivos de texto plano.
+
+## Ejemplo
+
+Prerequisitos:
+- Obsidian
+- Instalar el plugin dataview en Obsidian
+
+Una vez en Obsidian, debes crear dos archivos
+- tradelist
+- tradesummary
+
+Copia y pega el siguiente contenido en los respectivos archivos
+
+1. tradelist
+```
+# Agosto
+trade:: DOGEUSDT | 2023-08-01 | 9681 | 0.07747 | long | 0 | open | perp
+
+# Julio
+trade:: ZECUSD | 2023-07-21 | 25.68 | 31.90 | long | 0 | open | etoro
+trade:: MKRUSDT | 2023-07-06 | 0.203 | 987.5 | long | 0 | open | perp
+trade:: MANAUSDT | 2023-07-05 | 510 | 0.3933 | long | 0 | open | perp
+trade:: TELUSDT | 2023-07-04 |  145981.6 | 0.001470 | long | 0 | open | spot
+trade:: VRAUSDT | 2023-07-04 |  19105.84 | 0.005234 | long | 0.00425 | closed | spot
+trade:: ETCUSDT | 2023-07-04 | 25.6 | 19.59 | long | 17.99 | simulation | perp
+trade:: SOLUSDC | 2023-07-03 |  26.19 | 19.09 | long | 0 | open | spot
+trade:: MKRUSDT | 2023-07-03 | 0.2 | 1021 | long | 0 | open | perp
+
+# Junio
+trade:: AAVEUSDT.P | 2023-06-28 | 5 | 61 | long | 67.38 | closed | perp
+trade:: CAKEUSDT | 2023-06-27 | 322 | 1.546 |  long | 0 | open | spot
+```
+
+Cada linea representa una compra, separando la información mediante el caracter `|`.
+- Activo
+- Fecha
+- Monto Total comprado
+- Precio de entrada en USD
+- Mi predicción (long: creo que el precio subira, short: creo que el precio bajará)
+- Precio de cierre o venta en USD
+- Estado (`open`, `closed`)
+- Wallet en caso que inviertas en distintas paginas o sistemas
+
+2. tradesummary
+```
+```dataview
+TABLE WITHOUT ID
+	Coin,
+	PL,
+	AbsPL,
+	Date,
+	Invested,
+	Wallet,
+	Status,
+	Open,
+	Closed,
+	PLPercent
+
+FROM "tradelist"
+WHERE trade
+FLATTEN trade AS W
+FLATTEN split(W, " \| ")[0] AS Coin
+FLATTEN split(W, " \| ")[1] AS Date
+FLATTEN split(W, " \| ")[2] AS Aquired
+FLATTEN split(W, " \| ")[3] AS Open
+FLATTEN split(W, " \| ")[4] AS Trend
+FLATTEN split(W, " \| ")[5] AS ClosedAnnotation
+FLATTEN split(W, " \| ")[6] AS Status
+FLATTEN split(W, " \| ")[7] AS Wallet
+FLATTEN round((number(Open)*number(Aquired)),2) as Invested
+
+FLATTEN choice(
+	 Status != "open" and (number(ClosedAnnotation) > 0),
+	 number(ClosedAnnotation),
+	 number(Open)
+ ) as ClosedVal
+
+FLATTEN choice(
+	 Status = "open",
+	 "--",
+	 number(ClosedVal)
+ ) as Closed
+
+FLATTEN choice(
+	Trend = "long",
+	(round((number(ClosedVal) - number(Open))/number(Open),3)),
+	(-1 * round((number(ClosedVal) - number(Open))/number(Open),3)
+  )
+)
+AS netPL
+
+FLATTEN round((netPL * 100),0) as "PLPercent"
+
+FLATTEN choice(
+	netPL != 0,
+	 choice(
+		 netPL > 0,
+		 choice(Status = "closed", "green", "lightgreen"),
+		 choice(Status = "closed", "#bb0000", "red")
+	 ),
+  "inherit"
+)
+AS "PLColor"
+
+FLATTEN choice(
+	netPL != 0,
+	"<span style='color: " + PLColor + ";'>" + PLPercent + "%</span>",
+	" "
+)
+AS "PL"
+
+FLATTEN round((netPL * number(Aquired) * ClosedVal),1) as AbsPL
+
+WHERE date(Date).month >= 6 AND
+date(Date).year = 2023
+
+SORT Date desc, Wallet desc
+```
+
+Este script de dataview, es un query que:
+- buscará solo en el archivo tradelist
+- buscará cualquier linea que comience con `trade::`
+
+Y generará una tabla como la siguiente
+
+![Listado de trades](/images/trades-obsidian-dataview.png)
+
+Si puedes ver una tabla como la de la imagen, está funcionando perfecto. 
+
+Modifica el archivo tradelist con tus trades y visualiza rápidamente el estado de tus inversiones.
+
+Happy trading!
