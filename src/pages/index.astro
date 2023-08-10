@@ -1,46 +1,62 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import GA from "../components/GoogleAnalytics.astro";
-
+import Book from "../components/Book.astro";
 ---
 
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <GA />
 
-	<head>
-		<GA/>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header title={SITE_TITLE} />
+    <main>
+      <h1>Senior dev skills</h1>
+      <p>
+        Este sitio recopila skills que no se centran en código, sino en todas
+        las características que un buen desarrollador debe tener para llevar a
+        cabo sus proyectos, efectivamente llevarlos a producción a tiempo, no
+        hacer trabajo demás, formar equipos que disfrutan su trabajo
+      </p>
 
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>Senior dev skills</h1>
-			<p>
-				Este sitio recopila skills que no se centran en código, 
-				sino en todas las características que un buen desarrollador debe tener 
-				para llevar a cabo sus proyectos, efectivamente llevarlos a producción a tiempo,
-				no hacer trabajo demás, formar equipos que disfrutan su trabajo
-			</p>
-			
-			<p>La promesa es ambiciosa, entregar soft skills que </p>
+      <p>La promesa es ambiciosa, entregar soft skills que</p>
 
-			<ul>
-				<li>No necesitan conocimientos de programación</li>
-				<li>Te haran trabajar menos</li>
-				<li>Te permitirán entregar mas rápido tus entregables</li>
-				<li>principios que ojalá sean transversales a cualquier profesión (y ojala a la vida)</li>
-			</ul>
-			<p>
-				No importa si tienes 0, 5 o 20 años de experiencia. Estos consejos aplican a cualquier estado de madures de tu carrera.
-			</p>
-			<p>
-				Este sitio fue construido con Astro, la idea no es que sea lindo o que tenga mil funcionalidades. Por ahora, que esto está naciendo, quiero que sea rápido.
-			</p>
-		</main>
-		<Footer />
-	</body>
+      <ul>
+        <li>No necesitan conocimientos de programación</li>
+        <li>Te haran trabajar menos</li>
+        <li>Te permitirán entregar mas rápido tus entregables</li>
+        <li>
+          principios que ojalá sean transversales a cualquier profesión (y ojala
+          a la vida)
+        </li>
+      </ul>
+      <p>
+        No importa si tienes 0, 5 o 20 años de experiencia. Estos consejos
+        aplican a cualquier estado de madures de tu carrera.
+      </p>
+      <p>
+        Este sitio fue construido con Astro, la idea no es que sea lindo o que
+        tenga mil funcionalidades. Por ahora, que esto está naciendo, quiero que
+        sea rápido.
+      </p>
+
+      <hr />
+
+      <section>
+        <p>
+          A continuación un excerpt de cada capitulo que creo merece estar en
+          este libro
+        </p>
+        <Book />
+        <hr />
+      </section>
+    </main>
+    <Footer />
+  </body>
 </html>
