@@ -20,3 +20,8 @@ const { title, description } = frontmatter;
 ```
 
 This enables a special way to user mdx info, different than normal. "normal" refers to files in the `content` folder
+
+# Index 
+
+We included the `Book` component
+See how yo [import md files](https://docs.astro.build/en/guides/markdown-content/#the-content-component)
